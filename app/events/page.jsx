@@ -1,41 +1,58 @@
 "use client";
 import { useEffect, useState } from "react";
-import EventCard from "@/components/EventCard";
 import { useSearchParams } from "next/navigation";
+import EventCard from "@/components/EventCard";
+import { Suspense } from "react";
 
-function EventsPage() {
-  const [eventsData, setEventData] = useState([]);
+async function fetchEvents() {
+  const response = await fetch("https://qevent-backend.labs.crio.do/events");
+  return response.json();
+}
+
+function EventsComponent() {
   const searchParams = useSearchParams();
-  const artistName = searchParams.get("artist");
-  async function fetchData() {
-    const eventReq = await fetch("https://qevent-backend.labs.crio.do/events");
-
-    const responseData = await eventReq.json();
-    console.log(responseData);
-    setEventData(responseData);
-  }
+  const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const artistFilter = searchParams.get("artist");
+  const tagFilter = searchParams.get("tag");
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    async function fetchData() {
+      const allEvents = await fetchEvents();
 
-  const filteredEvents = artistName
-    ? eventsData.filter((event) => event.artist === artistName)
-    : eventsData;
+      let filtered = allEvents;
+
+      if (artistFilter) {
+        filtered = filtered.filter((event) => event.artist === artistFilter);
+      }
+
+      if (tagFilter) {
+        filtered = filtered.filter((event) => event?.tags?.includes(tagFilter));
+      }
+
+      setFilteredEvents(filtered);
+    }
+
+    fetchData();
+  }, [artistFilter, tagFilter]);
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", padding: "32px" }}>
+    <div className="flex flex-row gap-x-2 gap-y-2 px-3 py-3 flex-wrap justify-evenly">
       {filteredEvents.length > 0 ? (
         filteredEvents.map((event) => (
-          <div key={event.id} style={{ flex: "1 1 350px" }}>
-            <EventCard eventData={event} />
-          </div>
+          <EventCard key={event.id} eventData={event} />
         ))
       ) : (
-        <p>No events found for {artistName}</p>
+        <p>Loading...</p>
       )}
     </div>
   );
 }
 
-export default EventsPage;
+export default function EventsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EventsComponent />
+    </Suspense>
+  );
+}
