@@ -18,11 +18,12 @@ function EventsPage() {
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", padding: "32px" }}>
-      {eventsData.map((event) => (
-        <div style={{ flex: "1 1 350px" }}>
-          <EventCard key={event.id} eventData={event} />
-        </div>
-      ))}
+      {eventsData &&
+        eventsData.map((event) => (
+          <div style={{ flex: "1 1 350px" }}>
+            <EventCard key={event.id} eventData={event} />
+          </div>
+        ))}
     </div>
   );
 }

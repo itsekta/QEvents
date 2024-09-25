@@ -36,7 +36,7 @@ const Header = () => {
       <div className="flex justify-center items-center gap-4">
         <div className="flex items-center justify-center gap-5 font-semibold max-md:hidden">
           <Link
-            href={"#"}
+            href={"/"}
             className="flex items-center justify-center gap-2 hover:text-primary hover:scale-105 hover:underline-offset-8 hover:underline transition-all"
           >
             <div className="scale-110">
@@ -46,7 +46,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href={"#"}
+            href={"/events"}
             className="flex items-center justify-center gap-2 hover:text-primary hover:scale-105 hover:underline-offset-8 hover:underline transition-all"
           >
             <div className="scale-110">
@@ -56,7 +56,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href={"#"}
+            href={"/artists"}
             className="flex items-center justify-center gap-2 hover:text-primary hover:scale-105 hover:underline-offset-8 hover:underline transition-all"
           >
             <div className="scale-110">
@@ -66,7 +66,7 @@ const Header = () => {
           </Link>
 
           <Link
-            href={"#"}
+            href={"/tags"}
             className="flex items-center justify-center gap-2 hover:text-primary hover:scale-105 hover:underline-offset-8 hover:underline transition-all"
           >
             <div className="scale-110">
