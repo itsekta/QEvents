@@ -22,8 +22,8 @@ function ArtistsPage() {
     <div style={{ display: "flex", flexWrap: "wrap", padding: "32px" }}>
       {artistsData &&
         artistsData.map((artist) => (
-          <div style={{ flex: "1 1 350px" }}>
-            <ArtistCard key={artist.id} artistData={artist} />
+          <div key={artist.id} style={{ flex: "1 1 350px" }}>
+            <ArtistCard artistData={artist} />
           </div>
         ))}
     </div>

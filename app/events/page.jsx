@@ -40,7 +40,9 @@ function EventsComponent() {
     <div className="flex flex-row gap-x-2 gap-y-2 px-3 py-3 flex-wrap justify-evenly">
       {filteredEvents.length > 0 ? (
         filteredEvents.map((event) => (
-          <EventCard key={event.id} eventData={event} />
+          <div key={event.id}>
+            <EventCard eventData={event} />
+          </div>
         ))
       ) : (
         <p>Loading...</p>
